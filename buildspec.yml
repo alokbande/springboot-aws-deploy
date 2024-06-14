@@ -15,13 +15,16 @@ phases:
       - echo building the Jar file
       - mvn clean install
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      #- docker build -t $REPOSITORY_URI:latest .
+      - docker build -t spring-demo-ecr .
+      #- docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker tag spring-demo-ecr:latest 637423286056.dkr.ecr.us-east-1.amazonaws.com/spring-demo-ecr:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo pushing to repo
-      - docker push $REPOSITORY_URI:latest
+      #- docker push $REPOSITORY_URI:latest
+      - docker push 637423286056.dkr.ecr.us-east-1.amazonaws.com/spring-demo-ecr:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       # Give your container name
